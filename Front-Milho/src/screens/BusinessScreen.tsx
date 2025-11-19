@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { businessService } from '@/services/businessService';
 import { Business, BusinessCreateDTO } from '@/types';
-import { Building2, Plus, X, Trash2, Phone, FileText, Truck, Loader2, Eye, Edit2, Save } from 'lucide-react';
+import { Building2, Plus, X, Trash2, Phone, FileText, Truck, Loader2, Eye, Edit2, Save, Package } from 'lucide-react';
 import Link from 'next/link';
 import { BusinessUpdateDTO } from '@/types';
 
@@ -311,6 +311,13 @@ export default function BusinessScreen() {
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Truck size={18} className="text-green-600 flex-shrink-0" />
                         <span className="text-sm"><strong>Caminhões:</strong> {business.deliveryTrucks.length}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <Package size={18} className="text-green-600 flex-shrink-0" />
+                        <span className="text-sm">
+                          <strong>Sacarias Total:</strong>{' '}
+                          {business.deliveryTrucks.reduce((total, truck) => total + truck.quantity, 0).toLocaleString('pt-BR')}
+                        </span>
                       </div>
                     </div>
 

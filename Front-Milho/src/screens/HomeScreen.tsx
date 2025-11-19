@@ -72,7 +72,7 @@ export default function HomeScreen() {
     <div className="min-h-screen p-4 sm:p-6">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-4xl font-bold text-green-800 mb-2">Dashboard</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold text-green-800 mb-2">Perfil</h1>
           <p className="text-green-600 text-sm sm:text-base">Bem-vindo ao sistema de gerenciamento</p>
         </div>
 
