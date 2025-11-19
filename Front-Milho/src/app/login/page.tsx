@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { AuthenticationInput } from '@/types';
@@ -12,14 +12,15 @@ export default function LoginPage() {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
   // Redireciona se já estiver autenticado
-  if (isAuthenticated) {
-    router.push('/');
-    return null;
-  }
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +42,30 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  // Mostra loading enquanto verifica autenticação
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          <p className="text-green-700 font-medium">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Se já autenticado, mostra loading durante redirecionamento
+  if (isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          <p className="text-green-700 font-medium">Redirecionando...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-50 to-green-100 p-4">

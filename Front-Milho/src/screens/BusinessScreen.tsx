@@ -6,6 +6,7 @@ import { Business, BusinessCreateDTO } from '@/types';
 import { Building2, Plus, X, Trash2, Phone, FileText, Truck, Loader2, Eye, Edit2, Save, Package } from 'lucide-react';
 import Link from 'next/link';
 import { BusinessUpdateDTO } from '@/types';
+import { formatCNPJ, formatPhone, unformatCNPJ, unformatPhone } from '@/utils/formatters';
 
 export default function BusinessScreen() {
   const [businesses, setBusinesses] = useState<Business[]>([]);
@@ -45,7 +46,13 @@ export default function BusinessScreen() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await businessService.create(formData);
+      // Remove formatação antes de enviar
+      const dataToSend = {
+        ...formData,
+        cnpj: unformatCNPJ(formData.cnpj || ''),
+        phone: unformatPhone(formData.phone || ''),
+      };
+      await businessService.create(dataToSend);
       setShowForm(false);
       setFormData({ name: '', cnpj: '', phone: '' });
       loadBusinesses();
@@ -58,8 +65,8 @@ export default function BusinessScreen() {
   const handleEdit = (business: Business) => {
     setEditFormData({
       name: business.name,
-      cnpj: business.cnpj || '',
-      phone: business.phone || '',
+      cnpj: formatCNPJ(business.cnpj || ''),
+      phone: formatPhone(business.phone || ''),
     });
     setEditingId(business.id);
     setShowForm(false);
@@ -74,7 +81,13 @@ export default function BusinessScreen() {
   const handleUpdate = async (e: React.FormEvent, id: string) => {
     e.preventDefault();
     try {
-      await businessService.update(id, editFormData);
+      // Remove formatação antes de enviar
+      const dataToSend = {
+        ...editFormData,
+        cnpj: unformatCNPJ(editFormData.cnpj || ''),
+        phone: unformatPhone(editFormData.phone || ''),
+      };
+      await businessService.update(id, dataToSend);
       setEditingId(null);
       setEditFormData({ name: '', cnpj: '', phone: '' });
       loadBusinesses();
@@ -178,9 +191,10 @@ export default function BusinessScreen() {
                 <input
                   type="text"
                   value={formData.cnpj}
-                  onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, cnpj: formatCNPJ(e.target.value) })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
                   placeholder="00.000.000/0000-00"
+                  maxLength={18}
                 />
               </div>
               <div>
@@ -190,9 +204,10 @@ export default function BusinessScreen() {
                 <input
                   type="text"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, phone: formatPhone(e.target.value) })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
                   placeholder="(00) 00000-0000"
+                  maxLength={15}
                 />
               </div>
             </div>
@@ -236,9 +251,11 @@ export default function BusinessScreen() {
                       <input
                         type="text"
                         value={editFormData.cnpj}
-                        onChange={(e) => setEditFormData({ ...editFormData, cnpj: e.target.value })}
+                        onChange={(e) => setEditFormData({ ...editFormData, cnpj: formatCNPJ(e.target.value) })}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                        placeholder="00.000.000/0000-00"
+                        maxLength={18}
                       />
                     </div>
                     <div>
@@ -246,9 +263,11 @@ export default function BusinessScreen() {
                       <input
                         type="text"
                         value={editFormData.phone}
-                        onChange={(e) => setEditFormData({ ...editFormData, phone: e.target.value })}
+                        onChange={(e) => setEditFormData({ ...editFormData, phone: formatPhone(e.target.value) })}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                        placeholder="(00) 00000-0000"
+                        maxLength={15}
                       />
                     </div>
                     <div className="flex space-x-2">

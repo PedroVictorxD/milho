@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { Home, Building2, LogOut, BarChart, LucideHome } from 'lucide-react';
+import { Home, Building2, LogOut, BarChart, LucideHome, FileText } from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -17,6 +17,7 @@ export default function Navigation() {
     { href: '/', label: 'Perfil', icon: LucideHome },
     { href: '/business', label: 'Empresas', icon: Building2 },
     { href: '/dashboard', label: 'Dashboard', icon: BarChart },
+    { href: '/reports', label: 'Relatórios', icon: FileText },
   ];
 
   return (
@@ -28,7 +29,7 @@ export default function Navigation() {
             <div className="flex items-center space-x-8">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.href || (item.href === '/business' && pathname?.startsWith('/business')) || (item.href === '/dashboard' && pathname?.startsWith('/dashboard'));
+                const isActive = pathname === item.href || (item.href === '/business' && pathname?.startsWith('/business')) || (item.href === '/dashboard' && pathname?.startsWith('/dashboard')) || (item.href === '/reports' && pathname?.startsWith('/reports'));
                 return (
                   <Link
                     key={item.href}
@@ -61,7 +62,7 @@ export default function Navigation() {
         <div className="flex items-center justify-around h-16 px-2">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href || (item.href === '/business' && pathname?.startsWith('/business')) || (item.href === '/dashboard' && pathname?.startsWith('/dashboard'));
+            const isActive = pathname === item.href || (item.href === '/business' && pathname?.startsWith('/business')) || (item.href === '/dashboard' && pathname?.startsWith('/dashboard')) || (item.href === '/reports' && pathname?.startsWith('/reports'));
             return (
               <Link
                 key={item.href}
