@@ -150,7 +150,7 @@ export default function DashboardScreen() {
               {selectedDate && (
                 <button
                   onClick={() => setSelectedDate('')}
-                  className="text-sm text-green-600 hover:text-green-700 underline"
+                  className="text-sm text-green-600 hover:text-green-700 hover:scale-105 underline transition-all duration-200"
                 >
                   Mostrar todos
                 </button>
@@ -168,7 +168,7 @@ export default function DashboardScreen() {
         {/* Cards de Estatísticas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {/* Total de Empresas */}
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Empresas Ativas</p>
@@ -183,7 +183,7 @@ export default function DashboardScreen() {
           </div>
 
           {/* Total de Caminhões */}
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Total Caminhões</p>
@@ -198,7 +198,7 @@ export default function DashboardScreen() {
           </div>
 
           {/* Total de Sacarias */}
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Total Sacarias</p>
@@ -213,7 +213,7 @@ export default function DashboardScreen() {
           </div>
 
           {/* Peso Total */}
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Peso Total (T)</p>
@@ -245,7 +245,7 @@ export default function DashboardScreen() {
         ) : mounted ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Gráfico de Sacarias por Empresa */}
-            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="bg-green-100 p-2 rounded-full">
                   <Package className="text-green-600" size={20} />
@@ -300,7 +300,7 @@ export default function DashboardScreen() {
             </div>
 
             {/* Gráfico de Caminhões por Empresa */}
-            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all duration-200">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="bg-purple-100 p-2 rounded-full">
                   <TruckIcon className="text-purple-600" size={20} />
@@ -389,7 +389,7 @@ export default function DashboardScreen() {
                       0
                     );
                     return (
-                      <tr key={business.id} className="hover:bg-gray-50">
+                      <tr key={business.id} className="hover:bg-gray-50 transition-colors duration-150">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {business.name}
                         </td>

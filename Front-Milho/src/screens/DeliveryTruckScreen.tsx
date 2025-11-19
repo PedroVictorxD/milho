@@ -88,10 +88,10 @@ export default function DeliveryTruckScreen() {
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+            className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg ${
               showForm
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-green-600 hover:bg-green-700 text-white'
+                ? 'bg-red-500 hover:bg-red-600 hover:scale-105 text-white'
+                : 'bg-green-600 hover:bg-green-700 hover:scale-105 text-white'
             }`}
           >
             {showForm ? (
@@ -202,7 +202,7 @@ export default function DeliveryTruckScreen() {
 
             <button
               type="submit"
-              className="flex items-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+              className="flex items-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
             >
               <Plus size={20} />
               <span>Criar Caminhão</span>
@@ -220,7 +220,7 @@ export default function DeliveryTruckScreen() {
             {trucks.map((truck) => (
               <div
                 key={truck.id}
-                className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center space-x-3">
@@ -231,7 +231,7 @@ export default function DeliveryTruckScreen() {
                   </div>
                   <button
                     onClick={() => handleDelete(truck.id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-110"
                     title="Excluir caminhão"
                   >
                     <Trash2 size={20} />

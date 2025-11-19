@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hover Effects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configurações customizadas do Tailwind */
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+        .hover\:scale-110:hover {
+            transform: scale(1.10);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Teste de Efeitos Hover</h1>
+
+        <!-- Botão com hover scale 105 -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Botão com hover:scale-105:</p>
+            <button class="px-6 py-3 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+                Hover me (scale 105)
+            </button>
+        </div>
+
+        <!-- Botão com hover scale 110 -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Botão com hover:scale-110:</p>
+            <button class="p-3 bg-blue-600 hover:bg-blue-700 hover:scale-110 text-white rounded-lg transition-all duration-200">
+                Hover me (scale 110)
+            </button>
+        </div>
+
+        <!-- Card com hover shadow -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Card com hover:shadow-lg:</p>
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200">
+                <h3 class="text-lg font-semibold text-gray-800">Card Title</h3>
+                <p class="text-gray-600 mt-2">Passe o mouse sobre este card para ver o efeito de sombra.</p>
+            </div>
+        </div>
+
+        <!-- Card com hover background -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Card com hover background:</p>
+            <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md cursor-default">
+                <div class="bg-green-100 p-2 rounded-full">
+                    <span class="text-green-600">📧</span>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Email</p>
+                    <p class="text-lg font-medium text-gray-800">teste@exemplo.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Link com hover scale -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Link com hover:scale-105:</p>
+            <a href="#" class="inline-flex items-center space-x-2 text-green-600 hover:text-green-700 hover:scale-105 transition-all duration-200">
+                <span>← Voltar</span>
+            </a>
+        </div>
+
+        <!-- Botões de ação pequenos -->
+        <div class="space-y-2">
+            <p class="text-sm text-gray-600">Botões de ação com hover:scale-110:</p>
+            <div class="flex space-x-2">
+                <button class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200 hover:scale-110">
+                    ✏️ Editar
+                </button>
+                <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-110">
+                    🗑️ Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

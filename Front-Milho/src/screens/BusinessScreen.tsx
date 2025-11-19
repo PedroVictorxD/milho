@@ -131,10 +131,10 @@ export default function BusinessScreen() {
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors w-full sm:w-auto ${
+            className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg w-full sm:w-auto ${
               showForm
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-green-600 hover:bg-green-700 text-white'
+                ? 'bg-red-500 hover:bg-red-600 hover:scale-105 text-white'
+                : 'bg-green-600 hover:bg-green-700 hover:scale-105 text-white'
             }`}
           >
             {showForm ? (
@@ -214,7 +214,7 @@ export default function BusinessScreen() {
 
             <button
               type="submit"
-              className="flex items-center justify-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors w-full sm:w-auto"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg w-full sm:w-auto"
             >
               <Plus size={20} />
               <span>Criar Empresa</span>
@@ -232,7 +232,7 @@ export default function BusinessScreen() {
             {businesses.map((business) => (
               <div
                 key={business.id}
-                className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-green-500 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200"
               >
                 {editingId === business.id ? (
                   <form onSubmit={(e) => handleUpdate(e, business.id)} className="space-y-4">
@@ -273,7 +273,7 @@ export default function BusinessScreen() {
                     <div className="flex space-x-2">
                       <button
                         type="submit"
-                        className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex-1"
+                        className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1"
                       >
                         <Save size={18} />
                         <span>Salvar</span>
@@ -281,7 +281,7 @@ export default function BusinessScreen() {
                       <button
                         type="button"
                         onClick={handleCancelEdit}
-                        className="flex items-center space-x-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                        className="flex items-center space-x-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
                       >
                         <X size={18} />
                       </button>
@@ -299,14 +299,14 @@ export default function BusinessScreen() {
                       <div className="flex space-x-1">
                         <button
                           onClick={() => handleEdit(business)}
-                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors flex-shrink-0"
+                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200 hover:scale-110 flex-shrink-0"
                           title="Editar empresa"
                         >
                           <Edit2 size={20} />
                         </button>
                         <button
                           onClick={() => handleDelete(business.id)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
+                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-110 flex-shrink-0"
                           title="Excluir empresa"
                         >
                           <Trash2 size={20} />
@@ -342,7 +342,7 @@ export default function BusinessScreen() {
 
                     <Link
                       href={`/business/${business.id}`}
-                      className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm sm:text-base"
+                      className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg text-sm sm:text-base"
                     >
                       <Eye size={18} />
                       <span>Ver Caminhões</span>

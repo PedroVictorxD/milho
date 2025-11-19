@@ -87,7 +87,7 @@ export default function HomeScreen() {
             {!isEditing && (
               <button
                 onClick={handleEdit}
-                className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 <Edit2 size={18} />
                 <span className="hidden sm:inline">Editar</span>
@@ -148,7 +148,7 @@ export default function HomeScreen() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center space-x-2 px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50"
+                  className="flex items-center space-x-2 px-6 py-2 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:scale-100"
                 >
                   <Save size={18} />
                   <span>Salvar</span>
@@ -156,7 +156,7 @@ export default function HomeScreen() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="flex items-center space-x-2 px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  className="flex items-center space-x-2 px-6 py-2 bg-gray-500 hover:bg-gray-600 hover:scale-105 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
                 >
                   <X size={18} />
                   <span>Cancelar</span>
@@ -165,7 +165,7 @@ export default function HomeScreen() {
             </form>
           ) : (
             <div className="space-y-4">
-              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md cursor-default">
                 <User className="text-green-600" size={20} />
                 <div>
                   <p className="text-sm text-gray-500">Nome</p>
@@ -173,7 +173,7 @@ export default function HomeScreen() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md cursor-default">
                 <AtSign className="text-green-600" size={20} />
                 <div>
                   <p className="text-sm text-gray-500">Username</p>
@@ -181,7 +181,7 @@ export default function HomeScreen() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md cursor-default">
                 <Mail className="text-green-600" size={20} />
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
@@ -190,7 +190,7 @@ export default function HomeScreen() {
               </div>
 
               {user?.createdAt && (
-                <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md cursor-default">
                   <Calendar className="text-green-600" size={20} />
                   <div>
                     <p className="text-sm text-gray-500">Membro desde</p>

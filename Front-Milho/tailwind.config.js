@@ -22,6 +22,16 @@ module.exports = {
           900: '#14532d',
         },
       },
+      transitionProperty: {
+        'all': 'all',
+      },
+      transitionDuration: {
+        '200': '200ms',
+      },
+      scale: {
+        '105': '1.05',
+        '110': '1.10',
+      },
     },
   },
   plugins: [],

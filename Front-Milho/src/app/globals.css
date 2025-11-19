@@ -6,5 +6,38 @@
   body {
     @apply bg-green-50 text-gray-900;
   }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  /* Garantir que as transformações e transições funcionem */
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .duration-200 {
+    transition-duration: 200ms;
+  }
+
+  .duration-150 {
+    transition-duration: 150ms;
+  }
+
+  .hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+
+  .hover\:scale-110:hover {
+    transform: scale(1.10);
+  }
+
+  /* Garantir que os elementos com hover tenham transform-origin correto */
+  [class*="hover:scale"] {
+    transform-origin: center;
+  }
 }
 

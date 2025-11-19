@@ -189,7 +189,7 @@ export default function ReportsScreen() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <button
               onClick={() => setReportType('complete')}
-              className={`p-4 rounded-lg border-2 transition-all ${
+              className={`p-4 rounded-lg border-2 transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg ${
                 reportType === 'complete'
                   ? 'border-green-600 bg-green-50'
                   : 'border-gray-300 hover:border-green-400'
@@ -208,7 +208,7 @@ export default function ReportsScreen() {
 
             <button
               onClick={() => setReportType('filtered')}
-              className={`p-4 rounded-lg border-2 transition-all ${
+              className={`p-4 rounded-lg border-2 transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg ${
                 reportType === 'filtered'
                   ? 'border-green-600 bg-green-50'
                   : 'border-gray-300 hover:border-green-400'
@@ -237,7 +237,7 @@ export default function ReportsScreen() {
               </h2>
               <button
                 onClick={handleClearFilters}
-                className="text-sm text-red-600 hover:text-red-700 flex items-center space-x-1"
+                className="text-sm text-red-600 hover:text-red-700 hover:scale-105 flex items-center space-x-1 transition-all duration-200"
               >
                 <X size={16} />
                 <span>Limpar Filtros</span>
@@ -304,7 +304,7 @@ export default function ReportsScreen() {
                   <button
                     key={key}
                     onClick={() => toggleField(key as keyof ReportFilters)}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg border-2 transition-all ${
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg border-2 transition-all duration-200 hover:scale-105 ${
                       filters[key as keyof ReportFilters]
                         ? 'border-green-600 bg-green-50 text-green-700'
                         : 'border-gray-300 text-gray-600 hover:border-green-400'
@@ -325,24 +325,24 @@ export default function ReportsScreen() {
 
         {/* Estatísticas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Empresas</p>
             <p className="text-3xl font-bold text-gray-800 mt-2">{stats.totalBusinesses}</p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Caminhões</p>
             <p className="text-3xl font-bold text-gray-800 mt-2">{stats.totalTrucks}</p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Sacarias</p>
             <p className="text-3xl font-bold text-gray-800 mt-2">
               {stats.totalQuantity.toLocaleString('pt-BR')}
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+          <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Peso Total (T)</p>
             <p className="text-3xl font-bold text-gray-800 mt-2">
               {stats.totalWeight.toFixed(2)}
@@ -369,7 +369,7 @@ export default function ReportsScreen() {
                   />
                 }
                 fileName={`relatorio-${reportType}-${new Date().toISOString().split('T')[0]}.pdf`}
-                className="inline-flex items-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                className="inline-flex items-center space-x-2 px-6 py-3 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 {({ loading: pdfLoading }) =>
                   pdfLoading ? (
