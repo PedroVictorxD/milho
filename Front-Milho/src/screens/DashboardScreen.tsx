@@ -8,9 +8,7 @@ import dynamic from 'next/dynamic';
 import { formatAbbreviatedNumber } from '@/utils/formatters';
 
 // Importar Victory dinamicamente para evitar SSR issues
-const VictoryBar = dynamic(() => import('victory').then(mod => mod.VictoryBar), { ssr: false });
-const VictoryChart = dynamic(() => import('victory').then(mod => mod.VictoryChart), { ssr: false });
-const VictoryAxis = dynamic(() => import('victory').then(mod => mod.VictoryAxis), { ssr: false });
+const VictoryPie = dynamic(() => import('victory').then(mod => mod.VictoryPie), { ssr: false });
 const VictoryTooltip = dynamic(() => import('victory').then(mod => mod.VictoryTooltip), { ssr: false });
 
 export default function DashboardScreen() {
@@ -250,72 +248,29 @@ export default function DashboardScreen() {
                 </div>
                 <h2 className="text-xl font-semibold text-gray-800">Sacarias por Empresa</h2>
               </div>
-              <div className="w-full overflow-x-auto">
-                <VictoryChart
-                  domainPadding={{ x: 40 }}
-                  height={320}
-                  width={500}
-                  padding={{ top: 30, bottom: 100, left: 80, right: 40 }}
-                >
-                  <VictoryAxis
-                    tickFormat={(t) => String(t)}
-                    style={{
-                      tickLabels: {
-                        fontSize: 11,
-                        angle: -45,
-                        textAnchor: 'end',
-                        fill: '#374151',
-                        fontFamily: 'Inter, system-ui, sans-serif',
-                        fontWeight: 500,
-                        padding: 5
-                      },
-                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
-                      grid: { stroke: 'none' },
-                    }}
-                  />
-                  <VictoryAxis
-                    dependentAxis
-                    tickFormat={(t) => Math.round(t).toLocaleString('pt-BR')}
-                    style={{
-                      tickLabels: {
-                        fontSize: 12,
-                        fill: '#374151',
-                        fontFamily: 'Inter, system-ui, sans-serif',
-                        fontWeight: 500
-                      },
-                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
-                      grid: { stroke: '#E5E7EB', strokeDasharray: '3,3' },
-                    }}
-                  />
-                  <VictoryBar
-                    data={sacariasData}
-                    style={{
-                      data: {
-                        fill: '#10B981',
-                        width: 30,
-                      },
-                    }}
-                    labels={({ datum }) => datum.label}
-                    labelComponent={
-                      <VictoryTooltip
-                        flyoutStyle={{
-                          fill: 'white',
-                          stroke: '#10B981',
-                          strokeWidth: 2,
-                          filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
-                        }}
-                        style={{
-                          fontSize: 12,
-                          fill: '#1F2937',
-                          fontFamily: 'Inter, system-ui, sans-serif',
-                          fontWeight: 600
-                        }}
-                        cornerRadius={4}
-                      />
+              <div className="w-full flex justify-center items-center">
+                <VictoryPie
+                  data={sacariasData}
+                  colorScale={['#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5', '#059669', '#047857', '#065F46', '#064E3B']}
+                  labelRadius={({ innerRadius }) => (innerRadius as number) + 60}
+                  style={{
+                    data: {
+                      fillOpacity: 0.9,
+                      stroke: '#fff',
+                      strokeWidth: 2
+                    },
+                    labels: {
+                      fontSize: 16,
+                      fill: '#ffffff',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                      fontWeight: 700
                     }
-                    cornerRadius={{ top: 4 }}
-                  />
-                </VictoryChart>
+                  }}
+                  labels={({ datum }) => `${datum.x}\n${datum.label}`}
+                  width={500}
+                  height={400}
+                  padding={{ top: 50, bottom: 50, left: 100, right: 100 }}
+                />
               </div>
             </div>
 
@@ -327,72 +282,29 @@ export default function DashboardScreen() {
                 </div>
                 <h2 className="text-xl font-semibold text-gray-800">Caminhões por Empresa</h2>
               </div>
-              <div className="w-full overflow-x-auto">
-                <VictoryChart
-                  domainPadding={{ x: 40 }}
-                  height={320}
-                  width={500}
-                  padding={{ top: 30, bottom: 100, left: 80, right: 40 }}
-                >
-                  <VictoryAxis
-                    tickFormat={(t) => String(t)}
-                    style={{
-                      tickLabels: {
-                        fontSize: 11,
-                        angle: -45,
-                        textAnchor: 'end',
-                        fill: '#374151',
-                        fontFamily: 'Inter, system-ui, sans-serif',
-                        fontWeight: 500,
-                        padding: 5
-                      },
-                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
-                      grid: { stroke: 'none' },
-                    }}
-                  />
-                  <VictoryAxis
-                    dependentAxis
-                    tickFormat={(t) => Math.round(t).toLocaleString('pt-BR')}
-                    style={{
-                      tickLabels: {
-                        fontSize: 12,
-                        fill: '#374151',
-                        fontFamily: 'Inter, system-ui, sans-serif',
-                        fontWeight: 500
-                      },
-                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
-                      grid: { stroke: '#E5E7EB', strokeDasharray: '3,3' },
-                    }}
-                  />
-                  <VictoryBar
-                    data={trucksData}
-                    style={{
-                      data: {
-                        fill: '#8B5CF6',
-                        width: 30,
-                      },
-                    }}
-                    labels={({ datum }) => datum.label}
-                    labelComponent={
-                      <VictoryTooltip
-                        flyoutStyle={{
-                          fill: 'white',
-                          stroke: '#8B5CF6',
-                          strokeWidth: 2,
-                          filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
-                        }}
-                        style={{
-                          fontSize: 12,
-                          fill: '#1F2937',
-                          fontFamily: 'Inter, system-ui, sans-serif',
-                          fontWeight: 600
-                        }}
-                        cornerRadius={4}
-                      />
+              <div className="w-full flex justify-center items-center">
+                <VictoryPie
+                  data={trucksData}
+                  colorScale={['#8B5CF6', '#A78BFA', '#C4B5FD', '#DDD6FE', '#EDE9FE', '#7C3AED', '#6D28D9', '#5B21B6', '#4C1D95']}
+                  labelRadius={({ innerRadius }) => (innerRadius as number) + 60}
+                  style={{
+                    data: {
+                      fillOpacity: 0.9,
+                      stroke: '#fff',
+                      strokeWidth: 2
+                    },
+                    labels: {
+                      fontSize: 11,
+                      fill: '#1F2937',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                      fontWeight: 600
                     }
-                    cornerRadius={{ top: 4 }}
-                  />
-                </VictoryChart>
+                  }}
+                  labels={({ datum }) => `${datum.x}\n${datum.label}`}
+                  width={500}
+                  height={400}
+                  padding={{ top: 50, bottom: 50, left: 100, right: 100 }}
+                />
               </div>
             </div>
           </div>
