@@ -294,7 +294,7 @@ export default function BusinessScreen() {
                         <div className="bg-green-100 p-2 rounded-full flex-shrink-0">
                           <Building2 className="text-green-600" size={24} />
                         </div>
-                        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">{business.name}</h3>
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 truncate uppercase">{business.name}</h3>
                       </div>
                       <div className="flex space-x-1">
                         <button
@@ -318,22 +318,22 @@ export default function BusinessScreen() {
                       {business.cnpj && (
                         <div className="flex items-center space-x-2 text-gray-600">
                           <FileText size={18} className="text-green-600 flex-shrink-0" />
-                          <span className="text-sm truncate"><strong>CNPJ:</strong> {business.cnpj}</span>
+                          <span className="text-sm truncate uppercase"><strong>CNPJ:</strong> {business.cnpj}</span>
                         </div>
                       )}
                       {business.phone && (
                         <div className="flex items-center space-x-2 text-gray-600">
                           <Phone size={18} className="text-green-600 flex-shrink-0" />
-                          <span className="text-sm truncate"><strong>Telefone:</strong> {business.phone}</span>
+                          <span className="text-sm truncate uppercase"><strong>Telefone:</strong> {business.phone}</span>
                         </div>
                       )}
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Truck size={18} className="text-green-600 flex-shrink-0" />
-                        <span className="text-sm"><strong>Caminhões:</strong> {business.deliveryTrucks.length}</span>
+                        <span className="text-sm uppercase"><strong>Caminhões:</strong> {business.deliveryTrucks.length}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Package size={18} className="text-green-600 flex-shrink-0" />
-                        <span className="text-sm">
+                        <span className="text-sm uppercase">
                           <strong>Sacarias Total:</strong>{' '}
                           {business.deliveryTrucks.reduce((total, truck) => total + truck.quantity, 0).toLocaleString('pt-BR')}
                         </span>

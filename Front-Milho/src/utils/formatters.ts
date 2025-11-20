@@ -171,3 +171,16 @@ export const validatePlate = (plate: string): boolean => {
 
   return oldFormat.test(cleanPlate) || mercosulFormat.test(cleanPlate);
 };
+
+/**
+ * Formata um número dividindo por 1000 e exibindo com até uma casa decimal
+ * Exemplo: 2685.99 -> "2.7", 2600 -> "2.6", 2000 -> "2"
+ */
+export const formatAbbreviatedNumber = (value: number): string => {
+  // Garantir que value é um número
+  const numValue = Number(value);
+  const result = numValue / 1000;
+  // Formatar com 1 casa decimal e remover .0 se necessário
+  const formatted = result.toFixed(1);
+  return formatted.endsWith('.0') ? formatted.slice(0, -2) : formatted;
+};

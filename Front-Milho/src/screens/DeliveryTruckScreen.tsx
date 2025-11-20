@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { deliveryTruckService } from '@/services/deliveryTruckService';
 import { businessService } from '@/services/businessService';
 import { DeliveryTruck, DeliveryTruckCreate, Business } from '@/types';
-import { Truck, Plus, X, Trash2, Building2, Hash, Weight, Package, Loader2 } from 'lucide-react';
+import { Truck, Plus, X, Trash2, Building2, Hash, Weight, Package, Loader2, Search } from 'lucide-react';
+import { formatPlate } from '@/utils/formatters';
 
 export default function DeliveryTruckScreen() {
   const [trucks, setTrucks] = useState<DeliveryTruck[]>([]);
@@ -12,6 +13,7 @@ export default function DeliveryTruckScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState<DeliveryTruckCreate>({
     businessId: '',
     trackSign: '',
@@ -67,6 +69,14 @@ export default function DeliveryTruckScreen() {
     }
   };
 
+  // Filtrar caminhões com base no termo de pesquisa
+  const filteredTrucks = trucks.filter((truck) => {
+    const searchLower = searchTerm.toLowerCase();
+    const truckNameMatch = truck.truckName.toLowerCase().includes(searchLower);
+    const plateMatch = truck.trackSign.toLowerCase().includes(searchLower);
+    return truckNameMatch || plateMatch;
+  });
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -81,7 +91,7 @@ export default function DeliveryTruckScreen() {
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-4xl font-bold text-green-800 mb-2">Caminhões de Entrega</h1>
             <p className="text-green-600">Gerencie a frota de caminhões</p>
@@ -106,6 +116,33 @@ export default function DeliveryTruckScreen() {
               </>
             )}
           </button>
+        </div>
+
+        {/* Barra de Pesquisa */}
+        <div className="mb-6">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Pesquisar por nome do motorista ou placa..."
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X size={18} />
+              </button>
+            )}
+          </div>
+          {searchTerm && (
+            <p className="mt-2 text-sm text-gray-600">
+              Encontrados {filteredTrucks.length} caminhão{filteredTrucks.length !== 1 ? 'ões' : ''} de {trucks.length}
+            </p>
+          )}
         </div>
 
         {error && (
@@ -215,9 +252,20 @@ export default function DeliveryTruckScreen() {
             <Truck className="mx-auto text-gray-400 mb-4" size={64} />
             <p className="text-gray-600 text-lg">Nenhum caminhão cadastrado</p>
           </div>
+        ) : filteredTrucks.length === 0 ? (
+          <div className="bg-white rounded-lg shadow-md p-12 text-center">
+            <Search className="mx-auto text-gray-400 mb-4" size={64} />
+            <p className="text-gray-600 text-lg">Nenhum caminhão encontrado com "{searchTerm}"</p>
+            <button
+              onClick={() => setSearchTerm('')}
+              className="mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+            >
+              Limpar pesquisa
+            </button>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {trucks.map((truck) => (
+            {filteredTrucks.map((truck) => (
               <div
                 key={truck.id}
                 className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-200"
@@ -227,7 +275,7 @@ export default function DeliveryTruckScreen() {
                     <div className="bg-green-100 p-2 rounded-full">
                       <Truck className="text-green-600" size={24} />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800">{truck.truckName}</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 uppercase">{truck.truckName}</h3>
                   </div>
                   <button
                     onClick={() => handleDelete(truck.id)}
@@ -241,15 +289,15 @@ export default function DeliveryTruckScreen() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2 text-gray-600">
                     <Hash size={18} className="text-green-600" />
-                    <span className="text-sm"><strong>Placa:</strong> {truck.trackSign}</span>
+                    <span className="text-sm uppercase"><strong>Placa:</strong> {formatPlate(truck.trackSign)}</span>
                   </div>
                   <div className="flex items-center space-x-2 text-gray-600">
                     <Weight size={18} className="text-green-600" />
-                    <span className="text-sm"><strong>Peso:</strong> {truck.weight.toLocaleString('pt-BR')} kg</span>
+                    <span className="text-sm uppercase"><strong>Peso:</strong> {truck.weight.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} T</span>
                   </div>
                   <div className="flex items-center space-x-2 text-gray-600">
                     <Package size={18} className="text-green-600" />
-                    <span className="text-sm"><strong>Quantidade:</strong> {truck.quantity}</span>
+                    <span className="text-sm uppercase"><strong>Quantidade:</strong> {truck.quantity}</span>
                   </div>
                 </div>
               </div>

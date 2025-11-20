@@ -48,7 +48,7 @@ export default function Navigation() {
             </div>
             <button
               onClick={logout}
-              className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors font-medium"
+              className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 hover:scale-105 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
             >
               <LogOut size={18} />
               <span>Sair</span>
@@ -80,7 +80,7 @@ export default function Navigation() {
           })}
           <button
             onClick={logout}
-            className="flex flex-col items-center justify-center space-y-1 px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors"
+            className="flex flex-col items-center justify-center space-y-1 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 hover:scale-110 text-white transition-all duration-200 shadow-md hover:shadow-lg"
             title="Sair"
           >
             <LogOut size={22} />

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import PDFReport from '@/components/PDFReport';
+import { formatAbbreviatedNumber } from '@/utils/formatters';
 
 // Importar PDFDownloadLink dinamicamente para evitar SSR
 const PDFDownloadLink = dynamic(
@@ -345,7 +346,7 @@ export default function ReportsScreen() {
           <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Peso Total (T)</p>
             <p className="text-3xl font-bold text-gray-800 mt-2">
-              {stats.totalWeight.toFixed(2)}
+              {formatAbbreviatedNumber(stats.totalWeight)}
             </p>
           </div>
         </div>

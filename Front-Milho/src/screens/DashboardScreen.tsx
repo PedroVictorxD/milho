@@ -5,6 +5,7 @@ import { businessService } from '@/services/businessService';
 import { Business } from '@/types';
 import { BarChart, Calendar, Loader2, TrendingUp, Package, Truck as TruckIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { formatAbbreviatedNumber } from '@/utils/formatters';
 
 // Importar Victory dinamicamente para evitar SSR issues
 const VictoryBar = dynamic(() => import('victory').then(mod => mod.VictoryBar), { ssr: false });
@@ -67,7 +68,7 @@ export default function DashboardScreen() {
         0
       );
       return {
-        x: business.name.length > 15 ? business.name.substring(0, 15) + '...' : business.name,
+        x: business.name.length > 12 ? business.name.substring(0, 12) + '...' : business.name,
         y: totalSacarias,
         label: `${totalSacarias.toLocaleString('pt-BR')} sacas`,
       };
@@ -77,9 +78,9 @@ export default function DashboardScreen() {
   // Preparar dados para o gráfico de caminhões
   const trucksData = useMemo(() => {
     return filteredBusinesses.map((business) => ({
-      x: business.name.length > 15 ? business.name.substring(0, 15) + '...' : business.name,
+      x: business.name.length > 12 ? business.name.substring(0, 12) + '...' : business.name,
       y: business.deliveryTrucks.length,
-      label: `${business.deliveryTrucks.length} caminhões`,
+      label: `${business.deliveryTrucks.length} caminhão${business.deliveryTrucks.length !== 1 ? 'es' : ''}`,
     }));
   }, [filteredBusinesses]);
 
@@ -218,10 +219,7 @@ export default function DashboardScreen() {
               <div>
                 <p className="text-gray-600 text-sm font-medium">Peso Total (T)</p>
                 <p className="text-3xl font-bold text-gray-800 mt-2">
-                  {totalStats.totalWeight.toLocaleString('pt-BR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {formatAbbreviatedNumber(totalStats.totalWeight)}
                 </p>
               </div>
               <div className="bg-orange-100 p-3 rounded-full">
@@ -254,29 +252,39 @@ export default function DashboardScreen() {
               </div>
               <div className="w-full overflow-x-auto">
                 <VictoryChart
-                  domainPadding={{ x: 30 }}
-                  height={300}
+                  domainPadding={{ x: 40 }}
+                  height={320}
                   width={500}
-                  padding={{ top: 20, bottom: 80, left: 60, right: 40 }}
+                  padding={{ top: 30, bottom: 100, left: 80, right: 40 }}
                 >
                   <VictoryAxis
+                    tickFormat={(t) => String(t)}
                     style={{
                       tickLabels: {
-                        fontSize: 10,
+                        fontSize: 11,
                         angle: -45,
                         textAnchor: 'end',
-                        fill: '#4B5563'
+                        fill: '#374151',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        fontWeight: 500,
+                        padding: 5
                       },
-                      axis: { stroke: '#E5E7EB' },
+                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
                       grid: { stroke: 'none' },
                     }}
                   />
                   <VictoryAxis
                     dependentAxis
+                    tickFormat={(t) => Math.round(t).toLocaleString('pt-BR')}
                     style={{
-                      tickLabels: { fontSize: 10, fill: '#4B5563' },
-                      axis: { stroke: '#E5E7EB' },
-                      grid: { stroke: '#F3F4F6', strokeDasharray: '5,5' },
+                      tickLabels: {
+                        fontSize: 12,
+                        fill: '#374151',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        fontWeight: 500
+                      },
+                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
+                      grid: { stroke: '#E5E7EB', strokeDasharray: '3,3' },
                     }}
                   />
                   <VictoryBar
@@ -284,16 +292,28 @@ export default function DashboardScreen() {
                     style={{
                       data: {
                         fill: '#10B981',
-                        width: 25,
+                        width: 30,
                       },
                     }}
                     labels={({ datum }) => datum.label}
                     labelComponent={
                       <VictoryTooltip
-                        flyoutStyle={{ fill: 'white', stroke: '#10B981', strokeWidth: 1 }}
-                        style={{ fontSize: 10, fill: '#1F2937' }}
+                        flyoutStyle={{
+                          fill: 'white',
+                          stroke: '#10B981',
+                          strokeWidth: 2,
+                          filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
+                        }}
+                        style={{
+                          fontSize: 12,
+                          fill: '#1F2937',
+                          fontFamily: 'Inter, system-ui, sans-serif',
+                          fontWeight: 600
+                        }}
+                        cornerRadius={4}
                       />
                     }
+                    cornerRadius={{ top: 4 }}
                   />
                 </VictoryChart>
               </div>
@@ -309,29 +329,39 @@ export default function DashboardScreen() {
               </div>
               <div className="w-full overflow-x-auto">
                 <VictoryChart
-                  domainPadding={{ x: 30 }}
-                  height={300}
+                  domainPadding={{ x: 40 }}
+                  height={320}
                   width={500}
-                  padding={{ top: 20, bottom: 80, left: 60, right: 40 }}
+                  padding={{ top: 30, bottom: 100, left: 80, right: 40 }}
                 >
                   <VictoryAxis
+                    tickFormat={(t) => String(t)}
                     style={{
                       tickLabels: {
-                        fontSize: 10,
+                        fontSize: 11,
                         angle: -45,
                         textAnchor: 'end',
-                        fill: '#4B5563'
+                        fill: '#374151',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        fontWeight: 500,
+                        padding: 5
                       },
-                      axis: { stroke: '#E5E7EB' },
+                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
                       grid: { stroke: 'none' },
                     }}
                   />
                   <VictoryAxis
                     dependentAxis
+                    tickFormat={(t) => Math.round(t).toLocaleString('pt-BR')}
                     style={{
-                      tickLabels: { fontSize: 10, fill: '#4B5563' },
-                      axis: { stroke: '#E5E7EB' },
-                      grid: { stroke: '#F3F4F6', strokeDasharray: '5,5' },
+                      tickLabels: {
+                        fontSize: 12,
+                        fill: '#374151',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        fontWeight: 500
+                      },
+                      axis: { stroke: '#D1D5DB', strokeWidth: 1 },
+                      grid: { stroke: '#E5E7EB', strokeDasharray: '3,3' },
                     }}
                   />
                   <VictoryBar
@@ -339,16 +369,28 @@ export default function DashboardScreen() {
                     style={{
                       data: {
                         fill: '#8B5CF6',
-                        width: 25,
+                        width: 30,
                       },
                     }}
                     labels={({ datum }) => datum.label}
                     labelComponent={
                       <VictoryTooltip
-                        flyoutStyle={{ fill: 'white', stroke: '#8B5CF6', strokeWidth: 1 }}
-                        style={{ fontSize: 10, fill: '#1F2937' }}
+                        flyoutStyle={{
+                          fill: 'white',
+                          stroke: '#8B5CF6',
+                          strokeWidth: 2,
+                          filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
+                        }}
+                        style={{
+                          fontSize: 12,
+                          fill: '#1F2937',
+                          fontFamily: 'Inter, system-ui, sans-serif',
+                          fontWeight: 600
+                        }}
+                        cornerRadius={4}
                       />
                     }
+                    cornerRadius={{ top: 4 }}
                   />
                 </VictoryChart>
               </div>
