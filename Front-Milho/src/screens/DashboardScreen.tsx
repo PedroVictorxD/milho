@@ -252,7 +252,7 @@ export default function DashboardScreen() {
                 <VictoryPie
                   data={sacariasData}
                   colorScale={['#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5', '#059669', '#047857', '#065F46', '#064E3B']}
-                  labelRadius={({ innerRadius }) => (innerRadius as number) + 60}
+                  labelRadius={({ innerRadius }) => (innerRadius as number) + 70}
                   style={{
                     data: {
                       fillOpacity: 0.9,
@@ -260,10 +260,11 @@ export default function DashboardScreen() {
                       strokeWidth: 2
                     },
                     labels: {
-                      fontSize: 16,
+                      fontSize: 14,
                       fill: '#ffffff',
                       fontFamily: 'Inter, system-ui, sans-serif',
-                      fontWeight: 700
+                      fontWeight: 700,
+                      textAnchor: 'middle'
                     }
                   }}
                   labels={({ datum }) => `${datum.x}\n${datum.label}`}
@@ -286,7 +287,7 @@ export default function DashboardScreen() {
                 <VictoryPie
                   data={trucksData}
                   colorScale={['#8B5CF6', '#A78BFA', '#C4B5FD', '#DDD6FE', '#EDE9FE', '#7C3AED', '#6D28D9', '#5B21B6', '#4C1D95']}
-                  labelRadius={({ innerRadius }) => (innerRadius as number) + 60}
+                  labelRadius={({ innerRadius }) => (innerRadius as number) + 70}
                   style={{
                     data: {
                       fillOpacity: 0.9,
@@ -294,10 +295,11 @@ export default function DashboardScreen() {
                       strokeWidth: 2
                     },
                     labels: {
-                      fontSize: 11,
-                      fill: '#1F2937',
+                      fontSize: 14,
+                      fill: '#ffffff',
                       fontFamily: 'Inter, system-ui, sans-serif',
-                      fontWeight: 600
+                      fontWeight: 700,
+                      textAnchor: 'middle'
                     }
                   }}
                   labels={({ datum }) => `${datum.x}\n${datum.label}`}
