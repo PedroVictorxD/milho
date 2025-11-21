@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { deliveryTruckService } from '@/services/deliveryTruckService';
 import { businessService } from '@/services/businessService';
 import { DeliveryTruck, DeliveryTruckCreate, Business, DeliveryTruckUpdate } from '@/types';
-import { Truck, Plus, X, Trash2, Hash, Weight, Package, Loader2, ArrowLeft, Building2, Edit2, Save, Search } from 'lucide-react';
+import { Truck, Plus, X, Trash2, Hash, Weight, Package, Loader2, ArrowLeft, Building2, Edit2, Save, Search, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { formatPlate } from '@/utils/formatters';
 
@@ -441,6 +441,10 @@ export default function BusinessTrucksScreen({ businessId }: BusinessTrucksScree
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Package size={18} className="text-green-600 flex-shrink-0" />
                         <span className="text-sm uppercase"><strong>Quantidade:</strong> {truck.quantity}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <Calendar size={18} className="text-green-600 flex-shrink-0" />
+                        <span className="text-sm"><strong>Cadastrado:</strong> {new Date(truck.createdAt).toLocaleDateString('pt-BR')}</span>
                       </div>
                     </div>
                   </>
