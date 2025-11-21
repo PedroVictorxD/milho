@@ -189,60 +189,60 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
-        
-        <View style={styles.header}>
-          <Text style={styles.title}>
-            Relatório de {reportType === 'complete' ? 'Dados Completos' : 'Dados Filtrados'}
-          </Text>
-          <Text style={styles.subtitle}>Sistema de Gerenciamento de Milho</Text>
-          <Text style={styles.subtitle}>Gerado em: {currentDate}</Text>
-        </View>
+      {businesses.map((business, index) => (
+        <Page key={business.id} size="A4" style={styles.page}>
 
-        
-        {reportType === 'filtered' && filters && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Filtros Aplicados</Text>
-            <View style={{ fontSize: 8 }}>
-              {filters.businessName && (
-                <Text>• Empresa: {filters.businessName}</Text>
-              )}
-              {filters.dateFrom && (
-                <Text>• Data de: {new Date(filters.dateFrom).toLocaleDateString('pt-BR')}</Text>
-              )}
-              {filters.dateTo && (
-                <Text>• Data até: {new Date(filters.dateTo).toLocaleDateString('pt-BR')}</Text>
-              )}
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              Relatório de {reportType === 'complete' ? 'Dados Completos' : 'Dados Filtrados'}
+            </Text>
+            <Text style={styles.subtitle}>Sistema de Gerenciamento de Milho</Text>
+            <Text style={styles.subtitle}>Gerado em: {currentDate}</Text>
+          </View>
+
+
+          {reportType === 'filtered' && filters && index === 0 && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Filtros Aplicados</Text>
+              <View style={{ fontSize: 8 }}>
+                {filters.businessName && (
+                  <Text>• Empresa: {filters.businessName}</Text>
+                )}
+                {filters.dateFrom && (
+                  <Text>• Data de: {new Date(filters.dateFrom).toLocaleDateString('pt-BR')}</Text>
+                )}
+                {filters.dateTo && (
+                  <Text>• Data até: {new Date(filters.dateTo).toLocaleDateString('pt-BR')}</Text>
+                )}
+              </View>
+            </View>
+          )}
+
+
+          <View style={styles.summaryBox}>
+            <Text style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 5 }}>Resumo da Empresa</Text>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryLabel}>Caminhões:</Text>
+              <Text style={styles.summaryValue}>{business.deliveryTrucks.length}</Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryLabel}>Peso Total:</Text>
+              <Text style={styles.summaryValue}>
+                {business.deliveryTrucks.reduce((sum, t) => sum + t.weight, 0).toFixed(2)} T
+              </Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryLabel}>Sacarias Total:</Text>
+              <Text style={styles.summaryValue}>
+                {formatNumber(business.deliveryTrucks.reduce((sum, t) => sum + t.quantity, 0))}
+              </Text>
             </View>
           </View>
-        )}
 
-        
-        <View style={styles.summaryBox}>
-          <Text style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 5 }}>Resumo Geral</Text>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Total de Empresas:</Text>
-            <Text style={styles.summaryValue}>{totalBusinesses}</Text>
-          </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Total de Caminhões:</Text>
-            <Text style={styles.summaryValue}>{totalTrucks}</Text>
-          </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Peso Total:</Text>
-            <Text style={styles.summaryValue}>{totalWeight.toFixed(2)} T</Text>
-          </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Sacarias Total:</Text>
-            <Text style={styles.summaryValue}>{formatNumber(totalQuantity)}</Text>
-          </View>
-        </View>
 
-        
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Detalhamento por Empresa</Text>
-          {businesses.map((business, index) => (
-            <View key={business.id} style={styles.businessCard} wrap={false}>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Detalhamento da Empresa</Text>
+            <View style={styles.businessCard}>
               <Text style={styles.businessName}>{business.name}</Text>
 
               {(!filters || filters.showCNPJ !== false) && business.cnpj && (
@@ -306,14 +306,14 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
                 </View>
               )}
             </View>
-          ))}
-        </View>
+          </View>
 
-        <View style={styles.footer}>
-          <Text>Sistema de Gerenciamento de Milho - Relatório gerado automaticamente</Text>
-          <Text>Página 1</Text>
-        </View>
-      </Page>
+          <View style={styles.footer}>
+            <Text>Sistema de Gerenciamento de Milho - Relatório gerado automaticamente</Text>
+            <Text>Página {index + 1} de {businesses.length}</Text>
+          </View>
+        </Page>
+      ))}
     </Document>
   );
 };
