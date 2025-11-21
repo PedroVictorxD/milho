@@ -2,7 +2,7 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { Business } from '@/types';
 
-// Estilos para o PDF
+
 const styles = StyleSheet.create({
   page: {
     padding: 30,
@@ -170,12 +170,12 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
   const now = new Date();
   const currentDate = `${now.toLocaleDateString('pt-BR')} ${now.toLocaleTimeString('pt-BR')}`;
 
-  // Função para formatar números
+  
   const formatNumber = (num: number): string => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
-  // Calcular totais
+
   const totalBusinesses = businesses.length;
   const totalTrucks = businesses.reduce((sum, b) => sum + b.deliveryTrucks.length, 0);
   const totalWeight = businesses.reduce(
@@ -190,7 +190,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Cabeçalho */}
+        
         <View style={styles.header}>
           <Text style={styles.title}>
             Relatório de {reportType === 'complete' ? 'Dados Completos' : 'Dados Filtrados'}
@@ -199,7 +199,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
           <Text style={styles.subtitle}>Gerado em: {currentDate}</Text>
         </View>
 
-        {/* Filtros Aplicados */}
+        
         {reportType === 'filtered' && filters && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Filtros Aplicados</Text>
@@ -217,7 +217,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
           </View>
         )}
 
-        {/* Resumo */}
+        
         <View style={styles.summaryBox}>
           <Text style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 5 }}>Resumo Geral</Text>
           <View style={styles.summaryRow}>
@@ -238,7 +238,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
           </View>
         </View>
 
-        {/* Lista de Empresas e Caminhões */}
+        
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Detalhamento por Empresa</Text>
           {businesses.map((business, index) => (
@@ -309,7 +309,6 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
           ))}
         </View>
 
-        {/* Rodapé */}
         <View style={styles.footer}>
           <Text>Sistema de Gerenciamento de Milho - Relatório gerado automaticamente</Text>
           <Text>Página 1</Text>

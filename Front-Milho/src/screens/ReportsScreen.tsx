@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic';
 import PDFReport from '@/components/PDFReport';
 import { formatAbbreviatedNumber } from '@/utils/formatters';
 
-// Importar PDFDownloadLink dinamicamente para evitar SSR
+
 const PDFDownloadLink = dynamic(
   () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
   { ssr: false }
@@ -71,10 +71,10 @@ export default function ReportsScreen() {
   useEffect(() => {
     setMounted(true);
     loadBusinesses();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  // Filtrar dados baseado nos filtros aplicados
+ 
   const filteredBusinesses = useMemo(() => {
     if (reportType === 'complete') {
       return businesses;
@@ -82,7 +82,7 @@ export default function ReportsScreen() {
 
     return businesses
       .filter((business) => {
-        // Filtro por nome da empresa
+       
         if (filters.businessName && !business.name.toLowerCase().includes(filters.businessName.toLowerCase())) {
           return false;
         }
@@ -90,7 +90,7 @@ export default function ReportsScreen() {
       })
       .map((business) => {
         const filteredTrucks = business.deliveryTrucks.filter((truck) => {
-          // Filtro por data
+          
           if (filters.dateFrom || filters.dateTo) {
             if (!truck.createdAt) return false;
             const truckDate = new Date(truck.createdAt);
@@ -109,7 +109,7 @@ export default function ReportsScreen() {
       .filter((business) => business.deliveryTrucks.length > 0);
   }, [businesses, filters, reportType]);
 
-  // Calcular estatísticas
+ 
   const stats = useMemo(() => {
     const totalBusinesses = filteredBusinesses.length;
     const totalTrucks = filteredBusinesses.reduce((sum, b) => sum + b.deliveryTrucks.length, 0);
@@ -228,7 +228,6 @@ export default function ReportsScreen() {
           </div>
         </div>
 
-        {/* Filtros */}
         {reportType === 'filtered' && (
           <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-blue-500">
             <div className="flex justify-between items-center mb-4">
@@ -245,7 +244,7 @@ export default function ReportsScreen() {
               </button>
             </div>
 
-            {/* Filtros de Dados */}
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -290,7 +289,7 @@ export default function ReportsScreen() {
               </div>
             </div>
 
-            {/* Campos para Exibir */}
+            
             <div>
               <h3 className="text-sm font-semibold text-gray-800 mb-3">Campos para Exibir</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -324,7 +323,7 @@ export default function ReportsScreen() {
           </div>
         )}
 
-        {/* Estatísticas */}
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500 hover:shadow-lg transition-all duration-200 cursor-default">
             <p className="text-gray-600 text-sm font-medium">Empresas</p>
@@ -351,7 +350,7 @@ export default function ReportsScreen() {
           </div>
         </div>
 
-        {/* Botão de Download */}
+        
         {filteredBusinesses.length > 0 && (
           <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Gerar Relatório PDF</h2>

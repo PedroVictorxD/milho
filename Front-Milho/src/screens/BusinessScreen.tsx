@@ -81,7 +81,7 @@ export default function BusinessScreen() {
   const handleUpdate = async (e: React.FormEvent, id: string) => {
     e.preventDefault();
     try {
-      // Remove formatação antes de enviar
+     
       const dataToSend = {
         ...editFormData,
         cnpj: unformatCNPJ(editFormData.cnpj || ''),

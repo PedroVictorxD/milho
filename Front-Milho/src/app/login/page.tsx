@@ -16,7 +16,7 @@ export default function LoginPage() {
   const { login, isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  // Redireciona se já estiver autenticado
+  
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
       router.push('/');
@@ -44,7 +44,6 @@ export default function LoginPage() {
     }
   };
 
-  // Mostra loading enquanto verifica autenticação
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -56,7 +55,6 @@ export default function LoginPage() {
     );
   }
 
-  // Se já autenticado, mostra loading durante redirecionamento
   if (isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen">
