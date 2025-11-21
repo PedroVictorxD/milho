@@ -318,7 +318,7 @@ export default function BusinessTrucksScreen({ businessId }: BusinessTrucksScree
         ) : filteredTrucks.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
             <Search className="mx-auto text-gray-400 mb-4" size={64} />
-            <p className="text-gray-600 text-lg">Nenhum caminhão encontrado com "{searchTerm}"</p>
+            <p className="text-gray-600 text-lg">{`Nenhum caminhão encontrado com "${searchTerm}"`}</p>
             <button
               onClick={() => setSearchTerm('')}
               className="mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
