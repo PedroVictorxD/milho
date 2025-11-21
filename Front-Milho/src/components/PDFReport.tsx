@@ -218,28 +218,6 @@ const PDFReport: React.FC<PDFReportProps> = ({ businesses, filters, reportType }
             </View>
           )}
 
-
-          <View style={styles.summaryBox}>
-            <Text style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 5 }}>Resumo da Empresa</Text>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Caminhões:</Text>
-              <Text style={styles.summaryValue}>{business.deliveryTrucks.length}</Text>
-            </View>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Peso Total:</Text>
-              <Text style={styles.summaryValue}>
-                {business.deliveryTrucks.reduce((sum, t) => sum + t.weight, 0).toFixed(2)} T
-              </Text>
-            </View>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Sacarias Total:</Text>
-              <Text style={styles.summaryValue}>
-                {formatNumber(business.deliveryTrucks.reduce((sum, t) => sum + t.quantity, 0))}
-              </Text>
-            </View>
-          </View>
-
-
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Detalhamento da Empresa</Text>
             <View style={styles.businessCard}>
